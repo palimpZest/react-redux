@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Movies = require("../controllers/Tasks");
+const Tasks = require("../controllers/Tasks");
 
 router
   .route("/")

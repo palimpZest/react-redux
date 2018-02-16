@@ -2,7 +2,6 @@ const config = require("../config.js");
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongodb, {
-  useMongoClient: true
 });
 const Schema = mongoose.Schema;
 
