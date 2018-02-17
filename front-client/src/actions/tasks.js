@@ -23,7 +23,7 @@ export function getAllTasks() {
   };
 }
 
-export function AddTask(item) {
+export function addTask(item) {
   return dispatch => {
     axios.post(API_URL, {name: item.name, description: item.description } )
     .then(response => dispatch(add_task_success(response.data)));
