@@ -15,3 +15,17 @@ function add_task_success(task) {
 function get_all_tasks_success(tasks) {
   return { type: GET_ALL_TASKS_SUCCESS, tasks };
 }
+
+export function getAllTasks() {
+  return dispatch => {
+    axios.get(API_URL)
+    .then(response => dispatch(get_all_tasks_success(response.data)));
+  };
+}
+
+export function addTask(item) {
+  return dispatch => {
+    axios.post(API_URL, {name: item.name, description: item.description } )
+    .then(response => dispatch(add_task_success(response.data)));
+  };
+}
