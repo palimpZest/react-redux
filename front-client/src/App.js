@@ -43,7 +43,7 @@ class App extends Component {
         <section>
           <h2>Browse your tasks</h2>
           <ul>
-            {this.props.tasks.map((task, index) => (
+            {this.props.tasks.tasks.map((task, index) => (
               <li
                 key={index}
                 style={{ listStyle: "none", marginBottom: "10px" }}
