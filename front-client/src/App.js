@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { getAllTasks, addTask } from "./actions/tasks";
 import logo from './logo.svg';
 import './App.css';
+import TaskForm from './components/taskForm';
 
 class App extends Component {
   constructor(props) {
@@ -21,25 +22,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React-redux</h1>
         </header>
         <h2>Write your tasks</h2>
-        <form action="/">
-          <label>Name</label>
-          <br />
-          <input type="text" name="name" placeholder="Your task name" />
-          <br />
-          <br />
-          <label>Description</label>
-          <br />
-          <input
-            type="text"
-            name="description"
-            placeholder="Write description here"
-          />
-          <br />
-          <br />
-          <button type="submit">
-            Add
-          </button>
-        </form>
+        <TaskForm />
         <section>
           <h2>Browse your tasks</h2>
           <ul>
