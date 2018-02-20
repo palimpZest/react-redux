@@ -4,46 +4,37 @@ import { bindActionCreators } from "redux";
 import { getAllTasks, addTask } from "./actions/tasks";
 import logo from './logo.svg';
 import './App.css';
+import TaskForm from './components/taskForm';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {name: "", description: ""};
+    this.submit = this.submit.bind(this);
   }
   componentDidMount() {
     this.props.getAllTasks();
   }
+
+  submit = (values) => {
+    console.log(values);
+    this.props.addTask({
+      name: values.name,
+      description: values.description
+    });
+  };
+
   render() {
-    return (
-      <div className="App">
+    return <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React-redux</h1>
         </header>
         <h2>Write your tasks</h2>
-        <form action="/">
-          <label>Name</label>
-          <br />
-          <input type="text" name="name" placeholder="Your task name" />
-          <br />
-          <br />
-          <label>Description</label>
-          <br />
-          <input
-            type="text"
-            name="description"
-            placeholder="Write description here"
-          />
-          <br />
-          <br />
-          <button type="submit">
-            Add
-          </button>
-        </form>
+        <TaskForm onSubmit={this.submit} />
         <section>
           <h2>Browse your tasks</h2>
           <ul>
-            {this.props.tasks.map((task, index) => (
+            {this.props.tasks.tasks.map((task, index) => (
               <li
                 key={index}
                 style={{ listStyle: "none", marginBottom: "10px" }}
@@ -56,8 +47,7 @@ class App extends Component {
             ))}
           </ul>
         </section>
-      </div>
-    );
+      </div>;
   }
 }
   
