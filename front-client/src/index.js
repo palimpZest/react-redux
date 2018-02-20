@@ -13,8 +13,8 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 const rootReducer = combineReducers({
-    tasks: taskReducer,
-    form: formReducer
+  form: formReducer,
+  tasks: taskReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
@@ -23,7 +23,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk));
 ReactDOM.render(
     <Provider store={store}>
         <App />
-    </Provider>, 
+    </Provider>,
     document.getElementById('root')
 );
 

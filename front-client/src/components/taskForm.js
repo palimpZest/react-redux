@@ -15,7 +15,7 @@ let TaskForm = props => {
         <label>Description</label>
         <br />
         <br />
-        <Field name="description" component="input" placeholder="Write description here" type="text" />
+        <Field name="description" component="textarea" placeholder="Write description here" type="text" rows="4" cols="35" />
       </div>
       <br />
       <button type="submit">Add</button>

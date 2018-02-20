@@ -9,20 +9,28 @@ import TaskForm from './components/taskForm';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {name: "", description: ""};
+    this.submit = this.submit.bind(this);
   }
   componentDidMount() {
     this.props.getAllTasks();
   }
+
+  submit = (values) => {
+    console.log(values);
+    this.props.addTask({
+      name: values.name,
+      description: values.description
+    });
+  };
+
   render() {
-    return (
-      <div className="App">
+    return <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React-redux</h1>
         </header>
         <h2>Write your tasks</h2>
-        <TaskForm />
+        <TaskForm onSubmit={this.submit} />
         <section>
           <h2>Browse your tasks</h2>
           <ul>
@@ -39,8 +47,7 @@ class App extends Component {
             ))}
           </ul>
         </section>
-      </div>
-    );
+      </div>;
   }
 }
   
