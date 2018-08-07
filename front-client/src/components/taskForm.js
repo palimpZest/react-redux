@@ -1,29 +1,71 @@
-import React from "react";
-import { Field, reduxForm } from "redux-form";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getAllTasks, addTask } from '../actions/tasks';
+import { withFormik, Form, Field } from 'formik';
 
-let TaskForm = props => {
-  const { handleSubmit } = props;
-  return <form onSubmit={handleSubmit}>
+class TaskForm extends Component {
+  render() {
+    return (
       <div>
-        <label>Name</label>
-        <br />
-        <br />
-        <Field name="name" component="input" placeholder="Your task name" type="text" />
+        <Form>
+          <div>
+            <label>Name</label>
+            <br />
+            <br />
+            <Field
+              name="name"
+              component="input"
+              placeholder="Your task name"
+              type="text"
+            />
+          </div>
+          <br />
+          <div>
+            <label>Description</label>
+            <br />
+            <br />
+            <Field
+              name="description"
+              component="textarea"
+              placeholder="Write description here"
+              type="text"
+              rows="4"
+              cols="35"
+            />
+          </div>
+          <br />
+          <button type="submit">Add</button>
+        </Form>
       </div>
-      <br />
-      <div>
-        <label>Description</label>
-        <br />
-        <br />
-        <Field name="description" component="textarea" placeholder="Write description here" type="text" rows="4" cols="35" />
-      </div>
-      <br />
-      <button type="submit">Add</button>
-    </form>;
-};
+    );
+  }
+}
 
-TaskForm = reduxForm({
-  form: "taskform"
-})(TaskForm)
+const EnhancedTaskForm = withFormik({
+  mapPropsToValues({ name, description }) {
+    return {
+      name: name || '',
+      description: description || ''
+    };
+  },
+  handleSubmit(values, { props, resetForm, setSubmitting }) {
+    props.dispatch(
+      addTask({
+        name: values.name,
+        description: values.description
+      })
+    );
+    setSubmitting(false);
+    console.log('before reset');
+    resetForm();
+    setTimeout(() => {
+      props.dispatch(getAllTasks());
+    }, 500);
+  },
+  displayName: 'BasicForm'
+})(TaskForm);
 
-export default TaskForm;
+export default connect(dispatch =>
+  bindActionCreators({ addTask, getAllTasks }, dispatch)
+)(EnhancedTaskForm);
