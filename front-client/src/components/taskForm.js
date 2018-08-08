@@ -57,11 +57,10 @@ const EnhancedTaskForm = withFormik({
       })
     );
     setSubmitting(false);
-    console.log('before reset');
     resetForm();
     setTimeout(() => {
       props.dispatch(getAllTasks());
-    }, 500);
+    }, 50);
   },
   displayName: 'BasicForm'
 })(TaskForm);

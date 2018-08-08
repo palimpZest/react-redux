@@ -1,12 +1,12 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Tasks = require("../controllers/Tasks");
+const Tasks = require('../controllers/Tasks');
 
 router
-  .route("/")
+  .route('/')
   .get(Tasks.read)
   .post(Tasks.create);
 
-router.delete("/:id", Tasks.delete);
+router.delete('/:id', Tasks.delete);
 
 module.exports = router;

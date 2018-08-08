@@ -1,4 +1,4 @@
-const Task = require("../models/Task");
+const Task = require('../models/Task');
 
 const Tasks = {
   create: (req, res, next) => {
@@ -10,13 +10,13 @@ const Tasks = {
         res.render(err);
       } else {
         console.log(req.body);
-        console.log("Task created");
-        res.send("New task added !");
+        console.log('Task created');
+        res.send('New task added !');
       }
     });
   },
   read: (req, res, next) => {
-    Task.find({}, "name description").exec((error, results) => {
+    Task.find({}, 'name description').exec((error, results) => {
       if (results.length == 0) {
         res.send("There's been an error.");
       } else {
@@ -31,7 +31,7 @@ const Tasks = {
       if (err) {
         res.send({ error: true });
       } else {
-        res.send({ error: false });
+        res.send(req.params.id);
       }
     });
   }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 export const ADD_TASK_SUCCESS = 'ADD_TASK_SUCCESS';
+export const DELETE_TASK_SUCCESS = 'DELETE_TASK_SUCCESS';
 export const GET_ALL_TASKS_SUCCESS = 'GET_ALL_TASKS_SUCCESS';
 
 const API_URL = 'http://localhost:3000';
@@ -8,6 +9,21 @@ function add_task_success(task) {
   return {
     type: ADD_TASK_SUCCESS,
     task
+  };
+}
+
+function delete_task_success(task) {
+  return {
+    type: DELETE_TASK_SUCCESS,
+    task
+  };
+}
+
+export function deleteTask(item) {
+  return dispatch => {
+    axios
+      .delete(`${API_URL}/${item}`)
+      .then(response => dispatch(delete_task_success(response.data)));
   };
 }
 
@@ -25,7 +41,6 @@ export function addTask(item) {
 
 export function getAllTasks() {
   return dispatch => {
-    console.log('Return dispatch entered!');
     axios
       .get(API_URL)
       .then(response => dispatch(get_all_tasks_success(response.data)));
