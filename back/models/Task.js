@@ -1,8 +1,10 @@
-const config = require("../config.js");
-const mongoose = require("mongoose");
+const config = require('../config.js');
+const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect(config.mongodb, {
-});
+mongoose.connect(
+  config.mongodb,
+  {}
+);
 const Schema = mongoose.Schema;
 
 const Task = new Schema({
@@ -10,4 +12,4 @@ const Task = new Schema({
   description: String
 });
 
-module.exports = mongoose.model("Task", Task);
+module.exports = mongoose.model('Task', Task);
