@@ -20,24 +20,25 @@ class EditComponent extends Component {
           <Field
             component="input"
             type="text"
-            placeholder={this.props.task.name}
-            name="name"
             required
+            placeholder="Add a name"
+            name="name"
             style={{
               fontWeight: 'bold',
               fontSize: '25px'
             }}
+            onFocus={this.props.selectTextHandler}
           />
           <br />
           <br />
           <Field
             component="textarea"
             type="text"
-            placeholder={this.props.task.description}
+            placeholder="Add a description"
             name="description"
-            required
             rows="4"
             cols="35"
+            onFocus={this.props.selectTextHandler}
           />
           <br />
           <br />
@@ -56,30 +57,16 @@ class EditComponent extends Component {
             Update
           </button>
         </Form>
-        <button
-          onClick={this.props.returnHandler}
-          style={{
-            border: 'solid black 0.5px',
-            borderRadius: '3px',
-            width: '100px',
-            color: '#fff',
-            background: 'blue',
-            margin: '3px',
-            padding: '3px'
-          }}
-        >
-          Back to tasks
-        </button>
       </div>
     );
   }
 }
 
 const EnhancedEditComponent = withFormik({
-  mapPropsToValues({ name, description }) {
+  mapPropsToValues: (props, name, description) => {
     return {
-      name: name || '',
-      description: description || ''
+      name: name || props.task.name,
+      description: description || props.task.description
     };
   },
   handleSubmit(values, { props, resetForm, setSubmitting }) {
@@ -87,7 +74,7 @@ const EnhancedEditComponent = withFormik({
       editTask({
         id: props.task._id,
         name: values.name,
-        description: values.description
+        description: values.description || 'No description'
       })
     );
     setSubmitting(false);

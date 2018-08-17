@@ -4,7 +4,7 @@ const Tasks = {
   create: (req, res) => {
     new Task({
       name: req.body.name || req.query.name,
-      description: req.body.description || req.query.description
+      description: req.body.description || req.query.description || "No description"
     }).save(err => {
       if (err) {
         res.render(err);

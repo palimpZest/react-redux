@@ -14,6 +14,7 @@ class TaskForm extends Component {
             <br />
             <br />
             <Field
+              required
               name="name"
               component="input"
               placeholder="Your task name"
