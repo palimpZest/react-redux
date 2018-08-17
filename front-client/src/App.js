@@ -16,6 +16,7 @@ class App extends Component {
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onEditHandler = this.onEditHandler.bind(this);
     this.returnHandler = this.returnHandler.bind(this);
+    this.selectTextHandler = this.selectTextHandler.bind(this);
   }
   componentDidMount() {
     this.props.getAllTasks();
@@ -34,6 +35,10 @@ class App extends Component {
   returnHandler() {
     this.setState({ editing: false });
   }
+  selectTextHandler(e) {
+    e.preventDefault();
+    e.target.select();
+  }
   render() {
     return (
       <div className="App">
@@ -46,11 +51,28 @@ class App extends Component {
         <section>
           <h2>Browse your tasks</h2>
           <ul>
+            {this.state.editing ? (
+              <button
+                onClick={this.returnHandler}
+                style={{
+                  border: 'solid black 0.5px',
+                  borderRadius: '3px',
+                  width: '100px',
+                  color: '#fff',
+                  background: 'blue',
+                  margin: '3px',
+                  padding: '3px'
+                }}
+              >
+                Back to tasks
+              </button>
+            ) : null}
             {this.props.tasks.tasks.map(
               (task, index) =>
                 this.state.editing ? (
                   <EditComponent
                     returnHandler={this.returnHandler}
+                    selectTextHandler={this.selectTextHandler}
                     task={task}
                     key={task._id}
                   />
