@@ -1,5 +1,41 @@
 import styled, { keyframes } from 'styled-components';
+import { css } from 'styled-components';
 import { Form, Field } from 'formik';
+
+/* 
+* Common styles 
+*/
+
+// Button styles
+
+export const buttonStyles = css`
+  position: ${props => (props.red ? 'relative' : 'static')};
+  top: -60px;
+  left: 172px;
+  border: solid transparent 0.5px;
+  border-radius: 3px;
+  width: ${props => (props.red ? '35px' : '100px')};
+  color: #fff;
+  padding: ${props => (props.red ? '1px' : '7px')};
+  margin: 3px auto;
+  cursor: pointer;
+  box-shadow: 2px 2px 1px grey;
+  background: ${props =>
+    props.blue
+      ? 'blue'
+      : props.orange
+        ? 'orange'
+        : props.red
+          ? '#dc143c'
+          : 'green'};
+`;
+
+export const StyledButton = styled.button`
+  ${buttonStyles};
+  :hover {
+    box-shadow: 1px 1px 0.5px grey;
+  }
+`;
 
 // App.js
 export const StyledAppWrapper = styled.div`
@@ -15,6 +51,14 @@ export const rotate360 = keyframes`
   }
 `;
 
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0 auto;
+  width: 800px;
+`;
+
 export const AppLogo = styled.img`
   animation: ${rotate360} infinite 20s linear;
   height: 60px;
@@ -22,8 +66,8 @@ export const AppLogo = styled.img`
 
 export const AppHeader = styled.div`
   background-color: #222;
-  height: 120px;
-  padding: 20px;
+  height: 110px;
+  padding: 10px;
   color: white;
 `;
 
@@ -31,44 +75,18 @@ export const AppTitle = styled.h1`
   font-size: 1.5em;
 `;
 
-export const StyledBackButton = styled.button`
-  border: solid black 0.5px;
-  border-radius: 3px;
-  width: 100px;
-  color: #fff;
-  background: blue;
-  margin: 3px;
-  padding: 3px;
+export const StyledTaskHolder = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
-export const StyledEditButton = styled.button`
-  position: relative;
-  top: -5px;
-  left: 192px;
+export const StyledList = styled.div`
+  margin: 5px auto;
   border: solid black 0.5px;
-  border-radius: 3px;
-  width: 35px;
-  color: #fff;
-  background: orange;
-`;
-
-export const StyledDeleteButton = styled.button`
-  position: relative;
-  top: -60px;
-  left: 157px;
-  border: solid black 0.5px;
-  border-radius: 3px;
-  width: 35px;
-  color: #fff;
-  background: #dc143c;
-`;
-
-export const StyledList = styled.li`
-  list-style: none;
-  margin: 0 auto;
-  border: solid black 1px;
-  width: 400px;
+  width: 390px;
   border-radius: 5px;
+  box-shadow: 3px 3px 2px grey;
 `;
 
 export const StyledText = styled.span`
@@ -76,26 +94,12 @@ export const StyledText = styled.span`
   font-size: 25px;
 `;
 
-// EditComponent.js
-export const StyledUpdateButton = styled.button`
-  border: solid black 0.5px;
-  border-radius: 3px;
-  width: 100px;
-  color: #fff;
-  background: green;
-  margin-bottom: 1px;
-  padding: 3px;
-`;
-
 export const StyledForm = styled(Form)`
-  list-style: none;
-  margin: 0 auto;
-  border: solid black 1px;
-  width: 400px;
+  border: solid black 0.5px;
   border-radius: 5px;
 `;
 
 export const StyledField = styled(Field)`
   font-weight: bold;
-  font-size: 25px;
+  font-size: 18px;
 `;

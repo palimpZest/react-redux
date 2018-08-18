@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllTasks, editTask } from '../actions/tasks';
-import { withFormik, Field } from 'formik';
+import { withFormik } from 'formik';
 import {
-  StyledUpdateButton,
+  StyledButton,
   StyledForm,
-  StyledField
+  StyledField,
+  StyledList
 } from './../styles/AppStyle';
 
 class EditComponent extends Component {
   render() {
     return (
-      <div>
+      <StyledList>
         <StyledForm>
           <StyledField
             component="input"
@@ -24,20 +25,18 @@ class EditComponent extends Component {
           />
           <br />
           <br />
-          <Field
+          <StyledField
             component="textarea"
             type="text"
             placeholder="Add a description"
             name="description"
-            rows="4"
-            cols="35"
             onFocus={this.props.selectTextHandler}
           />
           <br />
           <br />
-          <StyledUpdateButton type="submit">Update</StyledUpdateButton>
+          <StyledButton type="submit">Update</StyledButton>
         </StyledForm>
-      </div>
+      </StyledList>
     );
   }
 }

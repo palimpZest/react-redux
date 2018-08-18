@@ -6,14 +6,14 @@ import EnhancedTaskForm from './components/TaskForm';
 import EditComponent from './components/EditComponent';
 import {
   StyledAppWrapper,
+  Container,
   AppLogo,
   AppHeader,
   AppTitle,
-  StyledBackButton,
+  StyledTaskHolder,
+  StyledButton,
   StyledList,
-  StyledText,
-  StyledEditButton,
-  StyledDeleteButton
+  StyledText
 } from './styles/AppStyle';
 import logo from './logo.svg';
 
@@ -56,49 +56,52 @@ class App extends Component {
           <AppLogo src={logo} alt="logo" />
           <AppTitle>Welcome to React-redux</AppTitle>
         </AppHeader>
-        <h2>Write your tasks</h2>
-        <EnhancedTaskForm />
-        <section>
-          <h2>Browse your tasks</h2>
-          <ul>
-            {this.state.editing ? (
-              <StyledBackButton onClick={this.returnHandler}>
-                Back to tasks
-              </StyledBackButton>
-            ) : null}
-            {this.props.tasks.tasks.map(
-              (task, index) =>
-                this.state.editing ? (
-                  <EditComponent
-                    returnHandler={this.returnHandler}
-                    selectTextHandler={this.selectTextHandler}
-                    task={task}
-                    key={task._id}
-                  />
-                ) : (
-                  <StyledList key={index}>
-                    <br />
-                    <StyledText>{task.name}</StyledText>
-                    <br />
-                    <span>{task.description}</span>
-                    <br />
-                    <StyledEditButton
-                      value={task._id}
-                      onClick={this.onEditHandler}
-                    >
-                      Edit
-                    </StyledEditButton>
-                    <StyledDeleteButton
-                      value={task._id}
-                      onClick={this.onDeleteHandler}
-                    >
-                      X
-                    </StyledDeleteButton>
-                  </StyledList>
-                )
-            )}
-          </ul>
-        </section>
+        <Container>
+          <h2>Write your tasks</h2>
+          {this.state.editing ? (
+            <StyledButton blue onClick={this.returnHandler}>
+              Back to tasks
+            </StyledButton>
+          ) : (
+            <div>
+              <EnhancedTaskForm />
+              <StyledButton orange onClick={this.onEditHandler}>
+                Edit tasks
+              </StyledButton>
+            </div>
+          )}
+          <section>
+            <h2>Browse your tasks</h2>
+            <StyledTaskHolder>
+              {this.props.tasks.tasks.map(
+                (task, index) =>
+                  this.state.editing ? (
+                    <EditComponent
+                      returnHandler={this.returnHandler}
+                      selectTextHandler={this.selectTextHandler}
+                      task={task}
+                      key={task._id}
+                    />
+                  ) : (
+                    <StyledList key={index}>
+                      <br />
+                      <StyledText>{task.name}</StyledText>
+                      <br />
+                      <span>{task.description}</span>
+                      <br />
+                      <StyledButton
+                        red
+                        value={task._id}
+                        onClick={this.onDeleteHandler}
+                      >
+                        X
+                      </StyledButton>
+                    </StyledList>
+                  )
+              )}
+            </StyledTaskHolder>
+          </section>
+        </Container>
       </StyledAppWrapper>
     );
   }
