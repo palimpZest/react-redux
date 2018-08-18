@@ -2,31 +2,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllTasks, editTask } from '../actions/tasks';
-import { withFormik, Form, Field } from 'formik';
+import { withFormik, Field } from 'formik';
+import {
+  StyledUpdateButton,
+  StyledForm,
+  StyledField
+} from './../styles/AppStyle';
 
 class EditComponent extends Component {
   render() {
     return (
       <div>
-        <Form
-          style={{
-            listStyle: 'none',
-            margin: '0 auto',
-            border: 'solid black 1px',
-            width: '400px',
-            borderRadius: '5px'
-          }}
-        >
-          <Field
+        <StyledForm>
+          <StyledField
             component="input"
             type="text"
             required
             placeholder="Add a name"
             name="name"
-            style={{
-              fontWeight: 'bold',
-              fontSize: '25px'
-            }}
             onFocus={this.props.selectTextHandler}
           />
           <br />
@@ -42,21 +35,8 @@ class EditComponent extends Component {
           />
           <br />
           <br />
-          <button
-            type="submit"
-            style={{
-              border: 'solid black 0.5px',
-              borderRadius: '3px',
-              width: '100px',
-              color: '#fff',
-              background: 'green',
-              marginBottom: '1px',
-              padding: '3px'
-            }}
-          >
-            Update
-          </button>
-        </Form>
+          <StyledUpdateButton type="submit">Update</StyledUpdateButton>
+        </StyledForm>
       </div>
     );
   }

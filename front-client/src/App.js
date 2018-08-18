@@ -2,10 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllTasks, addTask, editTask, deleteTask } from './actions/tasks';
-import logo from './logo.svg';
-import './App.css';
 import EnhancedTaskForm from './components/TaskForm';
 import EditComponent from './components/EditComponent';
+import {
+  StyledAppWrapper,
+  AppLogo,
+  AppHeader,
+  AppTitle,
+  StyledBackButton,
+  StyledList,
+  StyledText,
+  StyledEditButton,
+  StyledDeleteButton
+} from './styles/AppStyle';
+import logo from './logo.svg';
 
 class App extends Component {
   constructor(props) {
@@ -41,31 +51,20 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React-redux</h1>
-        </header>
+      <StyledAppWrapper>
+        <AppHeader>
+          <AppLogo src={logo} alt="logo" />
+          <AppTitle>Welcome to React-redux</AppTitle>
+        </AppHeader>
         <h2>Write your tasks</h2>
         <EnhancedTaskForm />
         <section>
           <h2>Browse your tasks</h2>
           <ul>
             {this.state.editing ? (
-              <button
-                onClick={this.returnHandler}
-                style={{
-                  border: 'solid black 0.5px',
-                  borderRadius: '3px',
-                  width: '100px',
-                  color: '#fff',
-                  background: 'blue',
-                  margin: '3px',
-                  padding: '3px'
-                }}
-              >
+              <StyledBackButton onClick={this.returnHandler}>
                 Back to tasks
-              </button>
+              </StyledBackButton>
             ) : null}
             {this.props.tasks.tasks.map(
               (task, index) =>
@@ -77,66 +76,30 @@ class App extends Component {
                     key={task._id}
                   />
                 ) : (
-                  <li
-                    key={index}
-                    style={{
-                      listStyle: 'none',
-                      margin: '0 auto',
-                      border: 'solid black 1px',
-                      width: '400px',
-                      borderRadius: '5px'
-                    }}
-                  >
+                  <StyledList key={index}>
                     <br />
-                    <span
-                      style={{
-                        fontWeight: 'bold',
-                        fontSize: '25px'
-                      }}
-                    >
-                      {task.name}
-                    </span>
+                    <StyledText>{task.name}</StyledText>
                     <br />
                     <span>{task.description}</span>
                     <br />
-                    <button
+                    <StyledEditButton
                       value={task._id}
                       onClick={this.onEditHandler}
-                      style={{
-                        position: 'relative',
-                        top: '-5px',
-                        left: '192px',
-                        border: 'solid black 0.5px',
-                        borderRadius: '3px',
-                        width: '35px',
-                        color: '#fff',
-                        background: 'orange'
-                      }}
                     >
                       Edit
-                    </button>
-                    <button
+                    </StyledEditButton>
+                    <StyledDeleteButton
                       value={task._id}
                       onClick={this.onDeleteHandler}
-                      style={{
-                        position: 'relative',
-                        top: '-60px',
-                        left: '157px',
-                        border: 'solid black 0.5px',
-                        borderRadius: '3px',
-                        width: '35px',
-                        color: '#fff',
-                        background: '#DC143C'
-                      }}
                     >
                       X
-                    </button>
-                  </li>
+                    </StyledDeleteButton>
+                  </StyledList>
                 )
             )}
           </ul>
         </section>
-      </div>
+      </StyledAppWrapper>
     );
   }
 }

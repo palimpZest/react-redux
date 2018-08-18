@@ -7,9 +7,9 @@ import thunk from 'redux-thunk';
 
 import { tasks as taskReducer } from './reducers/tasks';
 
-import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import './styles/GlobalStyle.js';
 
 const rootReducer = combineReducers({
   tasks: taskReducer
