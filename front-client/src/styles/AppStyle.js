@@ -26,20 +26,20 @@ export const media = Object.keys(sizes).reduce((accumulator, label) => {
 
 // Button styles
 export const buttonStyles = css`
-  position: ${props => (props.red ? 'absolute' : 'static')};
+  position: ${props => (props.red || props.purple ? 'absolute' : 'static')};
   top: 5px;
   right: 10px;
   border: solid transparent 0.5px;
   border-radius: 3px;
-  width: ${props => (props.red ? '35px' : '100px')};
+  width: ${props => (props.red || props.purple ? '35px' : '100px')};
   color: #fff;
-  padding: ${props => (props.red ? '1px' : '7px')};
-  margin: 3px auto;
+  padding: ${props => (props.red || props.purple ? '1px' : '7px')};
+  margin: 7px auto;
   cursor: pointer;
   box-shadow: 2px 2px 1px grey;
   background: ${props =>
-    props.blue
-      ? 'blue'
+    props.back
+      ? 'purple'
       : props.orange
         ? 'orange'
         : props.red
@@ -120,12 +120,63 @@ export const StyledText = styled.span`
   font-size: 25px;
 `;
 
+export const StyledDescription = styled.span`
+  font-size: 18px;
+`;
+
 export const StyledForm = styled(Form)`
-  border: solid black 0.5px;
-  border-radius: 5px;
+  width: 50%;
+  margin: 0 auto;
 `;
 
 export const StyledField = styled(Field)`
   font-weight: bold;
   font-size: 18px;
+  border: none;
+  border-bottom: 2px solid green;
+  border-radius: 4px;
+
+  width: 98%;
+  height: 45px;
+  padding-left: 15px;
+  ::placeholder {
+  }
+  :focus {
+    outline: none;
+    border-bottom: 2px solid black;
+    ::placeholder {
+      color: #d7dce2;
+    }
+  }
+`;
+
+export const StyledLabel = styled.label`
+  color: green;
+  font-size: 28px;
+  font-weight: 900;
+`;
+
+export const StyledEditForm = styled(Form)`
+  width: 85%;
+  margin: 0 auto;
+  padding-top: 7px;
+`;
+
+export const StyledEditField = styled(Field)`
+  font-weight: ${props => (props.editName ? 'bold' : 'normal')};
+  font-size: ${props => (props.editName ? '25px' : '18px')};
+  border: none;
+  border-bottom: 2px solid purple;
+  border-radius: 4px;
+  width: 80%;
+  padding-left: 15px;
+  ::placeholder {
+  }
+  :focus {
+    outline: none;
+    border-bottom: 2px solid black;
+    ::placeholder {
+      color: #d7dce2;
+    }
+  }
 `;

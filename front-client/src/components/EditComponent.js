@@ -5,8 +5,8 @@ import { getAllTasks, editTask } from '../actions/tasks';
 import { withFormik } from 'formik';
 import {
   StyledButton,
-  StyledForm,
-  StyledField,
+  StyledEditForm,
+  StyledEditField,
   StyledList
 } from './../styles/AppStyle';
 
@@ -14,19 +14,22 @@ class EditComponent extends Component {
   render() {
     return (
       <StyledList>
-        <StyledForm>
-          <StyledField
+        <StyledEditForm>
+          <StyledEditField
             component="input"
+            autocomplete="off"
             type="text"
             required
             placeholder="Add a name"
             name="name"
+            editName
             onFocus={this.props.selectTextHandler}
           />
           <br />
           <br />
-          <StyledField
-            component="textarea"
+          <StyledEditField
+            component="input"
+            autocomplete="off"
             type="text"
             placeholder="Add a description"
             name="description"
@@ -34,8 +37,10 @@ class EditComponent extends Component {
           />
           <br />
           <br />
-          <StyledButton type="submit">Update</StyledButton>
-        </StyledForm>
+          <StyledButton purple type="submit">
+            &#10003;
+          </StyledButton>
+        </StyledEditForm>
       </StyledList>
     );
   }

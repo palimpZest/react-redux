@@ -13,7 +13,8 @@ import {
   StyledTaskHolder,
   StyledButton,
   StyledList,
-  StyledText
+  StyledText,
+  StyledDescription
 } from './styles/AppStyle';
 import logo from './logo.svg';
 
@@ -59,7 +60,7 @@ class App extends Component {
         <Container>
           <h2>Write your tasks</h2>
           {this.state.editing ? (
-            <StyledButton blue onClick={this.returnHandler}>
+            <StyledButton back onClick={this.returnHandler}>
               Back to tasks
             </StyledButton>
           ) : (
@@ -87,7 +88,7 @@ class App extends Component {
                       <br />
                       <StyledText>{task.name}</StyledText>
                       <br />
-                      <span>{task.description}</span>
+                      <StyledDescription>{task.description}</StyledDescription>
                       <br />
                       <StyledButton
                         red
