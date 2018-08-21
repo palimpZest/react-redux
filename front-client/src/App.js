@@ -10,6 +10,7 @@ import {
   AppLogo,
   AppHeader,
   AppTitle,
+  StyledPlaceholder,
   StyledTaskHolder,
   StyledButton,
   StyledList,
@@ -58,13 +59,17 @@ class App extends Component {
           <AppTitle>Welcome to React-redux</AppTitle>
         </AppHeader>
         <Container>
-          <h2>Write your tasks</h2>
           {this.state.editing ? (
-            <StyledButton back onClick={this.returnHandler}>
-              Back to tasks
-            </StyledButton>
+            <div>
+              <h2>Edit your tasks</h2>
+              <StyledPlaceholder />
+              <StyledButton back onClick={this.returnHandler}>
+                Back to tasks
+              </StyledButton>
+            </div>
           ) : (
             <div>
+              <h2>Write your tasks</h2>
               <EnhancedTaskForm />
               <StyledButton orange onClick={this.onEditHandler}>
                 Edit tasks

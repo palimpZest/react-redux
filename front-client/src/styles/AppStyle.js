@@ -96,6 +96,13 @@ export const AppTitle = styled.h1`
   font-size: 1.5em;
 `;
 
+export const StyledPlaceholder = styled.div`
+  height: 208px;
+  color: purple;
+  background-color: palegreen;
+  border-radius: 50px;
+`;
+
 export const StyledTaskHolder = styled.div`
   display: flex;
   flex-direction: row;
@@ -109,6 +116,8 @@ export const StyledList = styled.div`
   width: 390px;
   border-radius: 5px;
   box-shadow: 3px 3px 2px grey;
+  overflow-wrap: break-word;
+  padding: 3px;
   ${media.giant`width: 400px;`}
   ${media.desktop`width: 390px;`}
   ${media.tablet`width: 375px;`}
@@ -139,8 +148,6 @@ export const StyledField = styled(Field)`
   width: 98%;
   height: 45px;
   padding-left: 15px;
-  ::placeholder {
-  }
   :focus {
     outline: none;
     border-bottom: 2px solid black;
