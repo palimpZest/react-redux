@@ -26,25 +26,29 @@ export const media = Object.keys(sizes).reduce((accumulator, label) => {
 
 // Button styles
 export const buttonStyles = css`
-  position: ${props => (props.red || props.purple ? 'absolute' : 'static')};
+  position: ${props => (props.delete || props.update ? 'absolute' : 'static')};
   top: 5px;
   right: 10px;
   border: solid transparent 0.5px;
+  font-size: 18px;
+  font-style: ${props => (props.edit || props.update ? 'italic' : 'normal')};
   border-radius: 3px;
-  width: ${props => (props.red || props.purple ? '35px' : '100px')};
+  width: ${props => (props.delete || props.update ? '35px' : '100px')};
   color: #fff;
-  padding: ${props => (props.red || props.purple ? '1px' : '7px')};
+  padding: ${props => (props.delete || props.update ? '1px' : '7px')};
   margin: 7px auto;
   cursor: pointer;
   box-shadow: 2px 2px 1px grey;
   background: ${props =>
     props.back
       ? 'purple'
-      : props.orange
-        ? 'orange'
-        : props.red
-          ? '#dc143c'
-          : 'green'};
+      : props.edit
+        ? '#3D7EEE'
+        : props.update
+          ? '#3D7EEE'
+          : props.delete
+            ? '#25292A'
+            : 'green'};
 `;
 
 export const StyledButton = styled.button`
@@ -96,11 +100,22 @@ export const AppTitle = styled.h1`
   font-size: 1.5em;
 `;
 
+export const StyledTitle = styled.div`
+  font-size: 40px;
+  margin: 10px auto;
+  background: ${props => (props.edittitle ? 'purple' : 'green')};
+  font-style: ${props => (props.edittitle ? 'italic' : 'normal')};
+  width: 265px;
+  color: white;
+`;
+
 export const StyledPlaceholder = styled.div`
   height: 208px;
-  color: purple;
-  background-color: palegreen;
   border-radius: 50px;
+  img {
+    height: 200px;
+    border-radius: 50px;
+  }
 `;
 
 export const StyledTaskHolder = styled.div`
@@ -110,27 +125,36 @@ export const StyledTaskHolder = styled.div`
 `;
 
 export const StyledList = styled.div`
+  display: flex;
+  flex-direction: column;
   position: relative;
+  align-items: flex-start;
   margin: 5px auto;
-  border: solid black 0.5px;
-  width: 390px;
+  min-height: 80px;
+  max-height: 80px;
+  width: 325px;
   border-radius: 5px;
   box-shadow: 3px 3px 2px grey;
+  padding: 20px 55px 5px 15px;
   overflow-wrap: break-word;
-  padding: 3px;
-  ${media.giant`width: 400px;`}
+  background: #F0F8FF;
+  /* ${media.giant`width: 400px;`}
   ${media.desktop`width: 390px;`}
   ${media.tablet`width: 375px;`}
-  ${media.phone`min-width: 200px;`};
+  ${media.phone`min-width: 200px;`}; */
 `;
 
 export const StyledText = styled.span`
   font-weight: bold;
   font-size: 25px;
+  margin-bottom: 15px;
 `;
 
 export const StyledDescription = styled.span`
   font-size: 18px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const StyledForm = styled(Form)`
@@ -140,48 +164,58 @@ export const StyledForm = styled(Form)`
 
 export const StyledField = styled(Field)`
   font-weight: bold;
-  font-size: 18px;
+  font-size: 33px;
   border: none;
   border-bottom: 2px solid green;
   border-radius: 4px;
-
   width: 98%;
+  margin: 15px 0;
+  height: 50px;
   height: 45px;
-  padding-left: 15px;
+  background: #f9f9f9;
+  ::placeholder {
+    color: green;
+  }
   :focus {
     outline: none;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #98fbb1;
     ::placeholder {
-      color: #d7dce2;
+      color: white;
+      background: palegreen;
+      height: 100%;
     }
   }
 `;
 
-export const StyledLabel = styled.label`
-  color: green;
-  font-size: 28px;
-  font-weight: 900;
-`;
-
 export const StyledEditForm = styled(Form)`
-  width: 85%;
-  margin: 0 auto;
-  padding-top: 7px;
+  min-height: 80px;
+  max-height: 80px;
 `;
 
 export const StyledEditField = styled(Field)`
-  font-weight: ${props => (props.editName ? 'bold' : 'normal')};
-  font-size: ${props => (props.editName ? '25px' : '18px')};
+  position: relative;
+  font-weight: ${props => (props.editname ? 'bold' : 'normal')};
+  font-size: ${props => (props.editname ? '25px' : '18px')};
+  font-style: italic;
   border: none;
-  border-bottom: 2px solid purple;
+  resize: none;
+  font-family: 'Roboto';
+  overflow: hidden;
   border-radius: 4px;
-  width: 80%;
-  padding-left: 15px;
-  ::placeholder {
-  }
+  width: 100%;
+  margin: 0 0 12px -1px;
+  background: #f0f8ff;
+  color: #25292a;
   :focus {
     outline: none;
-    border-bottom: 2px solid black;
+    border-bottom: 1.5px solid #98fbb1;
+    height: ${props => (props.editdescription ? '60px' : '30px')};
+    background: palegreen;
+    position: ${props => (props.editdescription ? 'absolute' : 'static')};
+    top: 55px;
+    left: 15px;
+    width: ${props => (props.editdescription ? '93%' : '100%')};
+    z-index: 1;
     ::placeholder {
       color: #d7dce2;
     }

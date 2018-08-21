@@ -17,27 +17,25 @@ class EditComponent extends Component {
         <StyledEditForm>
           <StyledEditField
             component="input"
-            autocomplete="off"
+            autoComplete="off"
             type="text"
             required
             placeholder="Add a name"
             name="name"
-            editName
+            editname={this.props.editname ? 'true' : 'false'}
             onFocus={this.props.selectTextHandler}
           />
-          <br />
-          <br />
           <StyledEditField
-            component="input"
-            autocomplete="off"
+            component="textarea"
+            autoComplete="off"
             type="text"
             placeholder="Add a description"
+            rows="1"
             name="description"
+            editdescription={this.props.description ? 'true' : 'false'}
             onFocus={this.props.selectTextHandler}
           />
-          <br />
-          <br />
-          <StyledButton purple type="submit">
+          <StyledButton update type="submit">
             &#10003;
           </StyledButton>
         </StyledEditForm>

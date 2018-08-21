@@ -10,6 +10,7 @@ import {
   AppLogo,
   AppHeader,
   AppTitle,
+  StyledTitle,
   StyledPlaceholder,
   StyledTaskHolder,
   StyledButton,
@@ -61,23 +62,27 @@ class App extends Component {
         <Container>
           {this.state.editing ? (
             <div>
-              <h2>Edit your tasks</h2>
-              <StyledPlaceholder />
+              <StyledTitle edittitle>Edit your tasks</StyledTitle>
+              <StyledPlaceholder>
+                <img
+                  src="https://media.giphy.com/media/IwSG1QKOwDjQk/giphy.gif"
+                  alt="update-loading"
+                />
+              </StyledPlaceholder>
               <StyledButton back onClick={this.returnHandler}>
-                Back to tasks
+                Back
               </StyledButton>
             </div>
           ) : (
             <div>
-              <h2>Write your tasks</h2>
+              <StyledTitle>Add your tasks</StyledTitle>
               <EnhancedTaskForm />
-              <StyledButton orange onClick={this.onEditHandler}>
-                Edit tasks
+              <StyledButton edit onClick={this.onEditHandler}>
+                Edit
               </StyledButton>
             </div>
           )}
           <section>
-            <h2>Browse your tasks</h2>
             <StyledTaskHolder>
               {this.props.tasks.tasks.map(
                 (task, index) =>
@@ -90,13 +95,10 @@ class App extends Component {
                     />
                   ) : (
                     <StyledList key={index}>
-                      <br />
                       <StyledText>{task.name}</StyledText>
-                      <br />
                       <StyledDescription>{task.description}</StyledDescription>
-                      <br />
                       <StyledButton
-                        red
+                        delete
                         value={task._id}
                         onClick={this.onDeleteHandler}
                       >
