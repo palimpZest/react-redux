@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { css } from 'styled-components';
 import { Form, Field } from 'formik';
 
@@ -34,7 +34,7 @@ export const buttonStyles = css`
   font-style: ${props => (props.edit || props.update ? 'italic' : 'normal')};
   border-radius: 3px;
   width: ${props => (props.delete || props.update ? '35px' : '100px')};
-  color: #fff;
+  color: ${props => (props.delete ? 'black' : '#fff')};
   padding: ${props => (props.delete || props.update ? '1px' : '7px')};
   margin: 7px auto;
   cursor: pointer;
@@ -47,8 +47,14 @@ export const buttonStyles = css`
         : props.update
           ? '#3D7EEE'
           : props.delete
-            ? '#25292A'
-            : 'green'};
+            ? 'transparent'
+            : 'palegreen'};
+  :hover {
+    background: ${props => (props.delete ? '#E8155C' : '')};
+    color: ${props => (props.delete ? 'white' : '')};
+    background: ${props => (props.update ? 'palegreen' : '')};
+    color: ${props => (props.update ? 'black' : '')};
+  }
 `;
 
 export const StyledButton = styled.button`
@@ -56,20 +62,23 @@ export const StyledButton = styled.button`
   :hover {
     box-shadow: 1px 1px 0.5px grey;
   }
+  :focus {
+    outline: none;
+  }
 `;
 
 // App.js
 export const StyledAppWrapper = styled.div`
   text-align: center;
+  width: 100%;
 `;
 
-const rotate360 = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+export const UpperNav = styled.nav`
+  height: 77px;
+  width: 100%;
+  background-color: #222;
+  position: absolute;
+  z-index: -1;
 `;
 
 export const Container = styled.div`
@@ -81,29 +90,28 @@ export const Container = styled.div`
   ${media.giant`width: 1000px;`}
   ${media.desktop`width: 800px;`}
   ${media.tablet`width: auto;`}
-  ${media.phone`width: auto;`};
+  ${media.phone`width: auto;`}
 `;
 
-export const AppLogo = styled.img`
-  animation: ${rotate360} infinite 20s linear;
-  height: 60px;
+export const AppTextLogo = styled.div`
+  font-size: 121px;
+  font-family: 'Righteous', cursive;
+  color: #f9f9f9;
+  margin-left: -3px;
 `;
 
 export const AppHeader = styled.div`
-  background-color: #222;
-  height: 110px;
-  padding: 10px;
+  display: flex;
+  height: 77px;
+  align-items: center;
+  padding: 0;
   color: white;
-`;
-
-export const AppTitle = styled.h1`
-  font-size: 1.5em;
 `;
 
 export const StyledTitle = styled.div`
   font-size: 40px;
   margin: 10px auto;
-  background: ${props => (props.edittitle ? 'purple' : 'green')};
+  background: ${props => (props.edittitle ? 'purple' : 'palegreen')};
   font-style: ${props => (props.edittitle ? 'italic' : 'normal')};
   width: 265px;
   color: white;
@@ -141,7 +149,7 @@ export const StyledList = styled.div`
   /* ${media.giant`width: 400px;`}
   ${media.desktop`width: 390px;`}
   ${media.tablet`width: 375px;`}
-  ${media.phone`min-width: 200px;`}; */
+  ${media.phone`min-width: 200px;`} */
 `;
 
 export const StyledText = styled.span`
@@ -166,7 +174,7 @@ export const StyledField = styled(Field)`
   font-weight: bold;
   font-size: 33px;
   border: none;
-  border-bottom: 2px solid green;
+  border-bottom: 2px solid #56e39f;
   border-radius: 4px;
   width: 98%;
   margin: 15px 0;
@@ -174,14 +182,14 @@ export const StyledField = styled(Field)`
   height: 45px;
   background: #f9f9f9;
   ::placeholder {
-    color: green;
+    color: #56e39f;
   }
   :focus {
     outline: none;
     border-bottom: 2px solid #98fbb1;
     ::placeholder {
       color: white;
-      background: palegreen;
+      background: #56e39f;
       height: 100%;
     }
   }
@@ -206,11 +214,14 @@ export const StyledEditField = styled(Field)`
   margin: 0 0 12px -1px;
   background: #f0f8ff;
   color: #25292a;
+  ::selection {
+    background: #f45c8f;
+  }
   :focus {
     outline: none;
     border-bottom: 1.5px solid #98fbb1;
     height: ${props => (props.editdescription ? '60px' : '30px')};
-    background: palegreen;
+    background: #56e39f;
     position: ${props => (props.editdescription ? 'absolute' : 'static')};
     top: 55px;
     left: 15px;

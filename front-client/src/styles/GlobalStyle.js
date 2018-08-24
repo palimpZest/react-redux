@@ -1,7 +1,7 @@
 import { injectGlobal } from 'styled-components';
 
 injectGlobal`
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto|Righteous');
 
 body {
     padding: 0;

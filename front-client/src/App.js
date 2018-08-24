@@ -6,10 +6,10 @@ import EnhancedTaskForm from './components/TaskForm';
 import EditComponent from './components/EditComponent';
 import {
   StyledAppWrapper,
+  UpperNav,
   Container,
-  AppLogo,
+  AppTextLogo,
   AppHeader,
-  AppTitle,
   StyledTitle,
   StyledPlaceholder,
   StyledTaskHolder,
@@ -18,7 +18,6 @@ import {
   StyledText,
   StyledDescription
 } from './styles/AppStyle';
-import logo from './logo.svg';
 
 class App extends Component {
   constructor(props) {
@@ -55,11 +54,11 @@ class App extends Component {
   render() {
     return (
       <StyledAppWrapper>
-        <AppHeader>
-          <AppLogo src={logo} alt="logo" />
-          <AppTitle>Welcome to React-redux</AppTitle>
-        </AppHeader>
+        <UpperNav />
         <Container>
+          <AppHeader>
+            <AppTextLogo>tasker</AppTextLogo>
+          </AppHeader>
           {this.state.editing ? (
             <div>
               <StyledTitle edittitle>Edit your tasks</StyledTitle>
@@ -102,7 +101,7 @@ class App extends Component {
                         value={task._id}
                         onClick={this.onDeleteHandler}
                       >
-                        X
+                        x
                       </StyledButton>
                     </StyledList>
                   )
