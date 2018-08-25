@@ -48,7 +48,8 @@ const EnhancedEditComponent = withFormik({
   mapPropsToValues: (props, name, description) => {
     return {
       name: name || props.task.name,
-      description: description || props.task.description
+      description: description || props.task.description,
+      created: props.task.created
     };
   },
   handleSubmit(values, { props, resetForm, setSubmitting }) {
@@ -56,7 +57,8 @@ const EnhancedEditComponent = withFormik({
       editTask({
         id: props.task._id,
         name: values.name,
-        description: values.description || 'No description'
+        description: values.description || 'No description',
+        created: props.task.created || 'no created value'
       })
     );
     setSubmitting(false);

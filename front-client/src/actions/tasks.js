@@ -33,36 +33,91 @@ function get_all_tasks_success(tasks) {
 
 export function addTask(item) {
   return dispatch => {
-    axios
-      .post(API_URL, { name: item.name, description: item.description })
-      .then(response => dispatch(add_task_success(response.data)));
+    // localStorage POST
+    let local_id =
+      Math.random()
+        .toString(36)
+        .substring(2, 15) +
+      Math.random()
+        .toString(36)
+        .substring(2, 15);
+
+    let created = Date.now();
+    let taskObject = {
+      _id: local_id,
+      name: item.name,
+      description: item.description,
+      created
+    };
+    Storage.prototype.setObject = function(key, value) {
+      this.setItem(key, JSON.stringify(value));
+    };
+    localStorage.setObject(local_id, taskObject);
+    dispatch(add_task_success('new task added in localStorage'));
+
+    // AXIOS POST
+    // axios
+    //   .post(API_URL, { name: item.name, description: item.description })
+    //   .then(response => dispatch(add_task_success(response.data)));
   };
 }
 
 export function editTask(item) {
   return dispatch => {
-    axios
-      .put(`${API_URL}/${item.id}`, {
-        name: item.name,
-        description: item.description,
-        editing: item.editing
-      })
-      .then(response => dispatch(edit_task_success(response.data)));
+    // localStorage PUT
+    Storage.prototype.setObject = function(key, value) {
+      this.setItem(key, JSON.stringify(value));
+    };
+    let taskEditedObject = {
+      _id: item.id,
+      name: item.name,
+      description: item.description,
+      created: item.created
+    };
+    localStorage.setObject(item.id, taskEditedObject);
+    dispatch(edit_task_success(`Task ${item.id} was edited on localStorage`));
+
+    // AXIOS PUT
+    // axios
+    //   .put(`${API_URL}/${item.id}`, {
+    //     name: item.name,
+    //     description: item.description,
+    //     editing: item.editing
+    //   })
+    //   .then(response => dispatch(edit_task_success(response.data)));
   };
 }
 
 export function deleteTask(item) {
   return dispatch => {
-    axios
-      .delete(`${API_URL}/${item}`)
-      .then(response => dispatch(delete_task_success(response.data)));
+    // localStorage DELETE
+    localStorage.removeItem(item);
+    dispatch(delete_task_success('removed from localStorage' + item));
+    dispatch(get_all_tasks_success([{}]));
+
+    // AXIOS DELETE
+    // axios
+    //   .delete(`${API_URL}/${item}`)
+    //   .then(response => dispatch(delete_task_success(response.data)));
   };
 }
 
 export function getAllTasks() {
+  console.log('GET tasks function!');
   return dispatch => {
-    axios
-      .get(API_URL)
-      .then(response => dispatch(get_all_tasks_success(response.data)));
+    // localStorage GET
+    let tasksArray = [];
+    for (var i = 0, len = localStorage.length; i < len; ++i) {
+      tasksArray.push(JSON.parse(Object.values(localStorage)[i]));
+    }
+    let sortedTasksArray = tasksArray.sort((a, b) => {
+      return b.created - a.created;
+    });
+    dispatch(get_all_tasks_success(sortedTasksArray));
+
+    // AXIOS GET
+    // axios
+    //   .get(API_URL)
+    //   .then(response => dispatch(get_all_tasks_success(response.data)));
   };
 }
