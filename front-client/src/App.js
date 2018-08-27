@@ -2,10 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllTasks, addTask, editTask, deleteTask } from './actions/tasks';
-import logo from './logo.svg';
-import './App.css';
 import EnhancedTaskForm from './components/TaskForm';
 import EditComponent from './components/EditComponent';
+import {
+  StyledAppWrapper,
+  UpperNav,
+  Container,
+  AppTextLogo,
+  AppHeader,
+  StyledTitle,
+  StyledPlaceholder,
+  StyledTaskHolder,
+  StyledButton,
+  StyledList,
+  StyledText,
+  StyledDescription
+} from './styles/AppStyle';
 
 class App extends Component {
   constructor(props) {
@@ -41,102 +53,63 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React-redux</h1>
-        </header>
-        <h2>Write your tasks</h2>
-        <EnhancedTaskForm />
-        <section>
-          <h2>Browse your tasks</h2>
-          <ul>
-            {this.state.editing ? (
-              <button
-                onClick={this.returnHandler}
-                style={{
-                  border: 'solid black 0.5px',
-                  borderRadius: '3px',
-                  width: '100px',
-                  color: '#fff',
-                  background: 'blue',
-                  margin: '3px',
-                  padding: '3px'
-                }}
-              >
-                Back to tasks
-              </button>
-            ) : null}
-            {this.props.tasks.tasks.map(
-              (task, index) =>
-                this.state.editing ? (
-                  <EditComponent
-                    returnHandler={this.returnHandler}
-                    selectTextHandler={this.selectTextHandler}
-                    task={task}
-                    key={task._id}
-                  />
-                ) : (
-                  <li
-                    key={index}
-                    style={{
-                      listStyle: 'none',
-                      margin: '0 auto',
-                      border: 'solid black 1px',
-                      width: '400px',
-                      borderRadius: '5px'
-                    }}
-                  >
-                    <br />
-                    <span
-                      style={{
-                        fontWeight: 'bold',
-                        fontSize: '25px'
-                      }}
-                    >
-                      {task.name}
-                    </span>
-                    <br />
-                    <span>{task.description}</span>
-                    <br />
-                    <button
-                      value={task._id}
-                      onClick={this.onEditHandler}
-                      style={{
-                        position: 'relative',
-                        top: '-5px',
-                        left: '192px',
-                        border: 'solid black 0.5px',
-                        borderRadius: '3px',
-                        width: '35px',
-                        color: '#fff',
-                        background: 'orange'
-                      }}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      value={task._id}
-                      onClick={this.onDeleteHandler}
-                      style={{
-                        position: 'relative',
-                        top: '-60px',
-                        left: '157px',
-                        border: 'solid black 0.5px',
-                        borderRadius: '3px',
-                        width: '35px',
-                        color: '#fff',
-                        background: '#DC143C'
-                      }}
-                    >
-                      X
-                    </button>
-                  </li>
-                )
-            )}
-          </ul>
-        </section>
-      </div>
+      <StyledAppWrapper>
+        <UpperNav />
+        <Container>
+          <AppHeader>
+            <AppTextLogo>tasker</AppTextLogo>
+          </AppHeader>
+          {this.state.editing ? (
+            <div>
+              <StyledTitle edittitle>Edit your tasks</StyledTitle>
+              <StyledPlaceholder>
+                <img
+                  src="https://media.giphy.com/media/IwSG1QKOwDjQk/giphy.gif"
+                  alt="update-loading"
+                />
+              </StyledPlaceholder>
+              <StyledButton back onClick={this.returnHandler}>
+                Back
+              </StyledButton>
+            </div>
+          ) : (
+            <div>
+              <StyledTitle>Add your tasks</StyledTitle>
+              <EnhancedTaskForm />
+              <StyledButton edit onClick={this.onEditHandler}>
+                Edit
+              </StyledButton>
+            </div>
+          )}
+          <section>
+            <StyledTaskHolder>
+              {this.props.tasks.tasks.map(
+                (task, index) =>
+                  this.state.editing ? (
+                    <EditComponent
+                      returnHandler={this.returnHandler}
+                      selectTextHandler={this.selectTextHandler}
+                      task={task}
+                      key={task._id}
+                    />
+                  ) : (
+                    <StyledList key={index}>
+                      <StyledText>{task.name}</StyledText>
+                      <StyledDescription>{task.description}</StyledDescription>
+                      <StyledButton
+                        delete
+                        value={task._id}
+                        onClick={this.onDeleteHandler}
+                      >
+                        x
+                      </StyledButton>
+                    </StyledList>
+                  )
+              )}
+            </StyledTaskHolder>
+          </section>
+        </Container>
+      </StyledAppWrapper>
     );
   }
 }

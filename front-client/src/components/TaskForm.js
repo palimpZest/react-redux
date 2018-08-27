@@ -2,43 +2,30 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllTasks, addTask } from '../actions/tasks';
-import { withFormik, Form, Field } from 'formik';
+import { withFormik } from 'formik';
+import { StyledForm, StyledField, StyledButton } from './../styles/AppStyle';
 
 class TaskForm extends Component {
   render() {
     return (
-      <div>
-        <Form>
-          <div>
-            <label>Name</label>
-            <br />
-            <br />
-            <Field
-              required
-              name="name"
-              component="input"
-              placeholder="Your task name"
-              type="text"
-            />
-          </div>
-          <br />
-          <div>
-            <label>Description</label>
-            <br />
-            <br />
-            <Field
-              name="description"
-              component="textarea"
-              placeholder="Write description here"
-              type="text"
-              rows="4"
-              cols="35"
-            />
-          </div>
-          <br />
-          <button type="submit">Add</button>
-        </Form>
-      </div>
+      <StyledForm>
+        <StyledField
+          required
+          type="text"
+          name="name"
+          component="input"
+          autoComplete="off"
+          placeholder="What do you want to do?"
+        />
+        <StyledField
+          type="text"
+          name="description"
+          component="input"
+          autoComplete="off"
+          placeholder="Where? When? Why? How?"
+        />
+        <StyledButton type="submit">Add</StyledButton>
+      </StyledForm>
     );
   }
 }

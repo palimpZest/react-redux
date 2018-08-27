@@ -2,62 +2,44 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllTasks, editTask } from '../actions/tasks';
-import { withFormik, Form, Field } from 'formik';
+import { withFormik } from 'formik';
+import {
+  StyledButton,
+  StyledEditForm,
+  StyledEditField,
+  StyledList
+} from './../styles/AppStyle';
 
 class EditComponent extends Component {
   render() {
     return (
-      <div>
-        <Form
-          style={{
-            listStyle: 'none',
-            margin: '0 auto',
-            border: 'solid black 1px',
-            width: '400px',
-            borderRadius: '5px'
-          }}
-        >
-          <Field
+      <StyledList>
+        <StyledEditForm>
+          <StyledEditField
             component="input"
+            autoComplete="off"
             type="text"
             required
             placeholder="Add a name"
             name="name"
-            style={{
-              fontWeight: 'bold',
-              fontSize: '25px'
-            }}
+            editname={this.props.editname ? 'true' : 'false'}
             onFocus={this.props.selectTextHandler}
           />
-          <br />
-          <br />
-          <Field
+          <StyledEditField
             component="textarea"
+            autoComplete="off"
             type="text"
             placeholder="Add a description"
+            rows="1"
             name="description"
-            rows="4"
-            cols="35"
+            editdescription={this.props.description ? 'true' : 'false'}
             onFocus={this.props.selectTextHandler}
           />
-          <br />
-          <br />
-          <button
-            type="submit"
-            style={{
-              border: 'solid black 0.5px',
-              borderRadius: '3px',
-              width: '100px',
-              color: '#fff',
-              background: 'green',
-              marginBottom: '1px',
-              padding: '3px'
-            }}
-          >
-            Update
-          </button>
-        </Form>
-      </div>
+          <StyledButton update type="submit">
+            &#10003;
+          </StyledButton>
+        </StyledEditForm>
+      </StyledList>
     );
   }
 }
