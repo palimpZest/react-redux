@@ -60,6 +60,14 @@ export function addTask(item) {
           };
           localStorage.setObject(local_id, taskObject);
           dispatch(add_task_success('Added new task'));
+          let tasksArray = [];
+          for (var i = 0, len = localStorage.length; i < len; ++i) {
+            tasksArray.push(JSON.parse(Object.values(localStorage)[i]));
+          }
+          let sortedTasksArray = tasksArray.sort((a, b) => {
+            return b.created - a.created;
+          });
+          dispatch(get_all_tasks_success(sortedTasksArray));
         } else {
           return Promise.reject(error);
         }
@@ -143,7 +151,7 @@ export function getAllTasks() {
         if (error) {
           let tasksArray = [];
           for (var i = 0, len = localStorage.length; i < len; ++i) {
-            tasksArray.push(JSON.parse(Object.values(window.localStorage)[i]));
+            tasksArray.push(JSON.parse(Object.values(localStorage)[i]));
           }
           let sortedTasksArray = tasksArray.sort((a, b) => {
             return b.created - a.created;
