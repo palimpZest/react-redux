@@ -33,36 +33,139 @@ function get_all_tasks_success(tasks) {
 
 export function addTask(item) {
   return dispatch => {
+    let postTaskInterceptor = axios.interceptors.response.use(
+      response => {
+        dispatch(add_task_success(response.data));
+        return response;
+      },
+      error => {
+        if (error) {
+          let local_id =
+            Math.random()
+              .toString(36)
+              .substring(2, 15) +
+            Math.random()
+              .toString(36)
+              .substring(2, 15);
+
+          let created = Date.now();
+          let taskObject = {
+            _id: local_id,
+            name: item.name,
+            description: item.description,
+            created
+          };
+          Storage.prototype.setObject = function(key, value) {
+            this.setItem(key, JSON.stringify(value));
+          };
+          localStorage.setObject(local_id, taskObject);
+          dispatch(add_task_success('Added new task'));
+          let tasksArray = [];
+          for (var i = 0, len = localStorage.length; i < len; ++i) {
+            tasksArray.push(JSON.parse(Object.values(localStorage)[i]));
+          }
+          let sortedTasksArray = tasksArray.sort((a, b) => {
+            return b.created - a.created;
+          });
+          dispatch(get_all_tasks_success(sortedTasksArray));
+        } else {
+          return Promise.reject(error);
+        }
+      }
+    );
     axios
       .post(API_URL, { name: item.name, description: item.description })
-      .then(response => dispatch(add_task_success(response.data)));
+      .then(response => dispatch(add_task_success(response.data)))
+      .catch(error => error);
+    axios.interceptors.response.eject(postTaskInterceptor);
   };
 }
 
 export function editTask(item) {
   return dispatch => {
+    let editInterceptor = axios.interceptors.response.use(
+      response => {
+        dispatch(edit_task_success(response.data));
+      },
+      error => {
+        if (error) {
+          Storage.prototype.setObject = function(key, value) {
+            this.setItem(key, JSON.stringify(value));
+          };
+          let taskEditedObject = {
+            _id: item.id,
+            name: item.name,
+            description: item.description,
+            created: item.created
+          };
+          localStorage.setObject(item.id, taskEditedObject);
+          dispatch(edit_task_success(`Edited task ${item.id}`));
+        } else {
+          return Promise.reject(error);
+        }
+      }
+    );
     axios
       .put(`${API_URL}/${item.id}`, {
         name: item.name,
         description: item.description,
         editing: item.editing
       })
-      .then(response => dispatch(edit_task_success(response.data)));
+      .then(response => dispatch(edit_task_success(response.data)))
+      .catch(error => error);
+    axios.interceptors.response.eject(editInterceptor);
   };
 }
 
 export function deleteTask(item) {
   return dispatch => {
+    let deleteInterceptor = axios.interceptors.response.use(
+      response => {
+        dispatch(delete_task_success(response.data));
+      },
+      error => {
+        if (error) {
+          localStorage.removeItem(item);
+          dispatch(delete_task_success(`Removed task ${item}`));
+          dispatch(get_all_tasks_success([{}]));
+        } else {
+          return Promise.reject(error);
+        }
+      }
+    );
     axios
       .delete(`${API_URL}/${item}`)
-      .then(response => dispatch(delete_task_success(response.data)));
+      .then(response => dispatch(delete_task_success(response.data)))
+      .catch(error => error);
+    axios.interceptors.response.eject(deleteInterceptor);
   };
 }
 
 export function getAllTasks() {
   return dispatch => {
+    let getTasksInterceptor = axios.interceptors.response.use(
+      response => {
+        dispatch(get_all_tasks_success(response.data));
+      },
+      error => {
+        if (error) {
+          let tasksArray = [];
+          for (var i = 0, len = localStorage.length; i < len; ++i) {
+            tasksArray.push(JSON.parse(Object.values(localStorage)[i]));
+          }
+          let sortedTasksArray = tasksArray.sort((a, b) => {
+            return b.created - a.created;
+          });
+          dispatch(get_all_tasks_success(sortedTasksArray));
+        } else {
+          return Promise.reject(error);
+        }
+      }
+    );
     axios
       .get(API_URL)
-      .then(response => dispatch(get_all_tasks_success(response.data)));
+      .then(response => dispatch(get_all_tasks_success(response.data)))
+      .catch(error => error);
+    axios.interceptors.response.eject(getTasksInterceptor);
   };
 }

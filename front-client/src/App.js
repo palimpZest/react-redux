@@ -83,29 +83,32 @@ class App extends Component {
           )}
           <section>
             <StyledTaskHolder>
-              {this.props.tasks.tasks.map(
-                (task, index) =>
-                  this.state.editing ? (
-                    <EditComponent
-                      returnHandler={this.returnHandler}
-                      selectTextHandler={this.selectTextHandler}
-                      task={task}
-                      key={task._id}
-                    />
-                  ) : (
-                    <StyledList key={index}>
-                      <StyledText>{task.name}</StyledText>
-                      <StyledDescription>{task.description}</StyledDescription>
-                      <StyledButton
-                        delete
-                        value={task._id}
-                        onClick={this.onDeleteHandler}
-                      >
-                        x
-                      </StyledButton>
-                    </StyledList>
-                  )
-              )}
+              {this.props.tasks.tasks &&
+                this.props.tasks.tasks.map(
+                  (task, index) =>
+                    this.state.editing ? (
+                      <EditComponent
+                        returnHandler={this.returnHandler}
+                        selectTextHandler={this.selectTextHandler}
+                        task={task}
+                        key={task._id}
+                      />
+                    ) : (
+                      <StyledList key={index}>
+                        <StyledText>{task.name}</StyledText>
+                        <StyledDescription>
+                          {task.description}
+                        </StyledDescription>
+                        <StyledButton
+                          delete
+                          value={task._id}
+                          onClick={this.onDeleteHandler}
+                        >
+                          x
+                        </StyledButton>
+                      </StyledList>
+                    )
+                )}
             </StyledTaskHolder>
           </section>
         </Container>
