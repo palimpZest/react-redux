@@ -118,10 +118,10 @@ export const StyledTitle = styled.div`
 `;
 
 export const StyledPlaceholder = styled.div`
-  height: 208px;
+  height: 158px;
   border-radius: 50px;
   img {
-    height: 200px;
+    height: 155px;
     border-radius: 50px;
   }
 `;
@@ -168,21 +168,23 @@ export const StyledDescription = styled.span`
 export const StyledForm = styled(Form)`
   width: 50%;
   margin: 0 auto;
+  ${media.desktop`width: 75%;`};
+  ${media.tablet`width: 85%;`};
+  ${media.phone`width: 99%;`};
 `;
 
 export const StyledField = styled(Field)`
-  font-weight: bold;
-  font-size: 33px;
+  font-size: 22px;
   border: none;
   border-bottom: 2px solid #56e39f;
   border-radius: 4px;
   width: 98%;
-  margin: 15px 0;
+  padding-left: 10px;
   height: 50px;
-  height: 45px;
   background: #f9f9f9;
   ::placeholder {
     color: #56e39f;
+    ${media.tablet`font-size: 20px;`};
   }
   :focus {
     outline: none;
@@ -190,7 +192,10 @@ export const StyledField = styled(Field)`
     ::placeholder {
       color: white;
       background: #56e39f;
-      height: 100%;
+      height: 67%;
+      padding: 0;
+      margin: auto 0;
+      margin-bottom: 10px;
     }
   }
 `;
