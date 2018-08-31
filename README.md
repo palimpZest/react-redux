@@ -10,6 +10,7 @@
 - Node.js / Express.js
 - mongoDB / Mongoose
 - Styled components
+- 100% responsive
 
 ##### **How to use**
 
